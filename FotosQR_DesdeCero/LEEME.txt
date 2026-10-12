@@ -1,0 +1,32 @@
+FOTOSQR — PROYECTO DESDE CERO
+============================
+
+Incluye
+- index.html: diseño adaptable, selección múltiple, previsualización, validación, carga, progreso y QR descargable.
+- config.js: configuración pública de Supabase.
+- supabase_setup.sql: crea la tabla de metadatos y el bucket privado, y define políticas de carga.
+
+IMPORTANTE
+Los archivos vienen preparados, pero ninguna aplicación puede guardar fotos en una nube sin que el propietario cree/configure el proyecto de almacenamiento. Debes completar los siguientes pasos una sola vez.
+
+CONFIGURACIÓN DESDE ANDROID
+1. Descarga y descomprime FotosQR_DesdeCero.zip con la app Archivos.
+2. En https://supabase.com crea un proyecto.
+3. En el panel de Supabase abre SQL Editor > New query. Copia todo supabase_setup.sql, pégalo y pulsa Run.
+4. En Project Settings / API Keys copia Project URL y la publishable key (o la clave anon heredada).
+5. Abre config.js con un editor de texto y reemplaza los dos valores de ejemplo. No uses secret ni service_role.
+6. Publica index.html y config.js en un hosting estático HTTPS. Puedes usar GitHub Pages: crea un repositorio, sube ambos archivos a la raíz y activa Settings > Pages > Deploy from a branch > main > /(root).
+7. Abre la URL pública; añade ?evento=Fiesta2026 al final para nombrar el evento. La página generará un QR para ese enlace. Descárgalo y pruébalo desde otro celular.
+
+FUNCIONAMIENTO
+- Fotos permitidas: JPG, PNG, WEBP.
+- Máximo 10 MB por foto y 20 por envío.
+- Los archivos se guardan en Storage/fotos-eventos/<evento>/.
+- Los datos básicos se guardan en la tabla public.fotos.
+- El bucket es privado. Esta versión permite subir archivos, pero no ofrece galería pública ni lectura/descarga de fotos a visitantes.
+
+SEGURIDAD Y COSTOS
+- La clave pública/anon puede estar en el navegador; jamás publiques service_role/secret.
+- La carga anónima puede ser abusada por cualquiera que conozca la URL. Comparte el QR solo con personas de confianza; para eventos públicos añade autenticación, CAPTCHA o un endpoint con límites de carga.
+- Revisa los límites y precios vigentes de Supabase y del hosting antes de compartir ampliamente.
+- La app necesita internet y las bibliotecas CDN externas deben cargar correctamente.
